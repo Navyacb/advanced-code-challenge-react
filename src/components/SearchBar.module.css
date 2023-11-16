@@ -1,0 +1,12 @@
+.error.margin{
+    color: red;
+    margin: 30px 40px;
+}
+.boxMargin{
+    margin: 30px 40px;
+}
+.position{
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}

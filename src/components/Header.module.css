@@ -1,0 +1,13 @@
+.header.appBar {
+    background-color:  #001327;
+    display: flex;
+  }
+
+.logo{
+  width: 60%;
+}
+
+.toolBar{
+  justify-content: space-between;
+}
+  

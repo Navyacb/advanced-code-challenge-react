@@ -1,0 +1,50 @@
+.cardBox.shadow{
+    box-shadow: none;
+    margin: 10px;
+}
+.cardBox:hover{
+    background-color:  #f2f7fc;
+}
+.paper.background{
+    background-color: #f2f7fc;
+}
+.padding{
+    padding: 20px 40px;
+}
+.topDate.font{
+    color: #666;
+    font-size: 12px;
+}
+.title.font{
+    color: #0666e5;
+    font-weight: 600;
+    font-size: 16px;
+}
+.subject.font{
+    color: #455f7c;
+    font-size: 14px;
+}
+.display{
+    display: flex;
+    justify-content: space-between;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px;
+    margin: -10px;
+    width: 500px;
+    box-shadow: 0 5px 8px rgba(0,0,0,0.1)
+}
+.contentRight{
+    margin-left: 20px;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.cardLink{
+    text-decoration: none;
+}
