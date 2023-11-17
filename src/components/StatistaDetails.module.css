@@ -10,3 +10,33 @@
     color: #0666e5;
     padding: 0px;
 }
+.heading{
+    margin: 20px 0px;
+    color: #0f2741;
+    font-size: 1.8rem;
+}
+.imgShadow{
+    box-shadow: 0 5px 8px rgba(0,0,0,0.1);
+}
+.paperContent{
+    margin: 40px 0px;
+    padding: 20px;
+}
+.title{
+    color: #455f7c;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.dateCol{
+    color: #455f7c;
+}
+.description.marginTop{
+    margin: 20px 0px;
+    color: #455f7c;
+}
+.marginButton{
+    margin-top: 10px;
+}
+.display{
+    display: flex;
+}

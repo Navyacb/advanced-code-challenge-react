@@ -1,29 +1,31 @@
 import {Card,CardContent,Typography,Paper,IconButton,Tooltip,Pagination} from '@mui/material'
 import {Favorite}  from '@mui/icons-material'
 import styles from './StatistaList.module.css'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { formatDate } from '../helper/formatDate';
+import { FavoritesDataContext } from '../state management/FavoritesDataContext';
+import { SearchResultContext } from '../state management/SearchResultContext';
+import { handleFavorites } from '../helper/handleFavorites';
 
 export const StatistaList = (props:any)=>{
     const {list} = props
     const itemsPerPage = 10
-
+    const {favDispatch} = useContext(FavoritesDataContext)
+    const {searchResult,searchDispatch} = useContext(SearchResultContext)
     const [currentPage, setCurrentPage] = useState(1)
 
     const indexOfLastItem = currentPage * itemsPerPage
     const indexOfFirstItem = indexOfLastItem - itemsPerPage
     const currentItems = list.slice(indexOfFirstItem, indexOfLastItem)
 
-    const formatDate = (dateString: string) => {
-        const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
-        const formattedDate = new Date(dateString).toLocaleDateString(undefined, options)
-        return formattedDate
-    }
-
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value)
     }
 
+    const handleFav = (data:any)=>{
+        handleFavorites(data,searchResult,searchDispatch,favDispatch)
+    }
 
     return(
         <Paper elevation={0} className={`${styles.paper} ${styles.background}`}>
@@ -49,30 +51,38 @@ export const StatistaList = (props:any)=>{
                         placement="top"
                         >
                         <Link to = {`/statistaData/${data.identifier}`} className={styles.cardLink}>
-                        <Card className={`${styles.cardBox} ${styles.shadow}`}>
-                            <CardContent>
-                                <div className={`${styles.display}`}>
-                                    <Typography className={`${styles.topDate} ${styles.font}`}>
-                                        Statistic | {formatDate(data.date)}
+                            <Card className={`${styles.cardBox} ${styles.shadow}`}>
+                                <CardContent>
+                                    <div className={`${styles.display}`}>
+                                        <Typography className={`${styles.topDate} ${styles.font}`}>
+                                            Statistic | {formatDate(data.date)}
+                                        </Typography>
+                                        <IconButton
+                                            className={`${styles.favoriteIcon}`}
+                                            aria-label="favorite"
+                                            onClick={(event) => {
+                                                event.preventDefault();
+                                                handleFav(data);
+                                            }}
+                                        >
+                                            <Favorite style={{ color: data.starColor }} />
+                                        </IconButton>
+                                    </div>
+                                    <Typography variant="h6" className={`${styles.title} ${styles.font}`}>
+                                        {data.title}
                                     </Typography>
-                                    <IconButton className={`${styles.favoriteIcon}`} aria-label="favorite">
-                                        <Favorite style={{ color: data.favColor }}  />
-                                    </IconButton>
-                                </div>
-                                <Typography variant="h6" className={`${styles.title} ${styles.font}`}>
-                                    {data.title}
-                                </Typography>
-                                <Typography variant="h6" className={`${styles.subject} ${styles.font}`}>
-                                    {data.subject}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                                    <Typography variant="h6" className={`${styles.subject} ${styles.font}`}>
+                                        {data.subject}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
                         </Link>
                         </Tooltip>
                     )
                 })
             }
             </Paper>
+            {list.length>0 &&
             <div className={`${styles.pagination}`}>
                 <Pagination
                     count={Math.ceil(list.length / itemsPerPage)}
@@ -80,7 +90,7 @@ export const StatistaList = (props:any)=>{
                     onChange={handlePageChange}
                     color="primary"
                 />
-            </div>
+            </div>}
         </Paper>
     )
 }

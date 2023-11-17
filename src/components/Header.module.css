@@ -10,4 +10,8 @@
 .toolBar{
   justify-content: space-between;
 }
+.linkColor{
+  color: white;
+  text-decoration: none;
+}
   

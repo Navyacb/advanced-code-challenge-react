@@ -10,10 +10,10 @@ export const Header = ()=>{
         <AppBar position="static" className={`${styles.header} ${styles.appBar}`}>
             <Toolbar className={`${styles.toolBar}`}>
             <Link to='/'><img src= {Logo} className={`${styles.logo}`} alt='Logo'/></Link>
-                <Button color="inherit">
+            <Link to='/favorites' className={styles.linkColor}><Button color="inherit">
                     <Favorite sx={{ mr: 1 }} />
                     Favorites List
-                </Button>
+            </Button></Link>
             </Toolbar>
         </AppBar>
         <Outlet/>

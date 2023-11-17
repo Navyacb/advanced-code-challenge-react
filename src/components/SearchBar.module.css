@@ -1,12 +1,10 @@
-.error.margin{
-    color: red;
-    margin: 30px 40px;
-}
-.boxMargin{
-    margin: 30px 40px;
+.buttonHeight{
+    height: 55px;
 }
 .position{
-    position: fixed;
-    width: 100%;
+    position: sticky;
+    top: 0px;
     z-index: 1000;
+    background: white;
+    padding: 30px 40px;
 }
