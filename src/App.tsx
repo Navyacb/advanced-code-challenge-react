@@ -1,11 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useReducer , useEffect} from 'react';
 import './App.css';
 import { RouterLinks } from './RouterLinks';
-import { SearchResultContext } from './state management/SearchResultContext';
-import { StatistaDataContext } from './state management/SatistaDataContext';
+import {StatistaContextData } from './state management/StatistaContextData';
 import axios from 'axios'
 import { useQuery} from 'react-query'
-import { FavoritesDataContext } from './state management/FavoritesDataContext';
+import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 
 const App=()=>{
 
@@ -13,8 +12,10 @@ const App=()=>{
       switch(action.type){
         case'ADD_SEARCH_LIST':
           return action.payload
-        case 'UPDATE_SEARCH_LIST' :
+        case 'UPDATE_SEARCH_LIST':
           return action.payload
+        case 'EMPTY_SEARCH_LIST':
+         return [];
         case 'default' :
           return state
       }
@@ -26,6 +27,10 @@ const App=()=>{
         return [...state,action.payload]
       case 'UPDATE_FAV':
         return state.filter((ele:any) => ele!==action.payload )
+      case 'ADD_FAV_lOCAL':
+        return action.payload
+      case 'default':
+        return state
     }
   }
 
@@ -47,15 +52,21 @@ const App=()=>{
     queryKey : ["StatistaData"]
   })
 
+  useEffect(() => {
+      const storedFavoritesData = localStorage.getItem('favoritesData')
+      const favorites = storedFavoritesData ? JSON.parse(storedFavoritesData) : []
+      favDispatch({ type: 'ADD_FAV_lOCAL', payload: favorites })
+    }, []);
+
+  useEffect(()=>{
+    localStorage.setItem('favoritesData', JSON.stringify(favoritesData))
+  },[favoritesData])
+
 
   return (
-    <StatistaDataContext.Provider value={{statistaData}}>
-      <SearchResultContext.Provider value={{searchResult,searchDispatch}}>
-        <FavoritesDataContext.Provider value={{favoritesData,favDispatch}}>
+    <StatistaContextData.Provider value={{statistaData,searchResult,searchDispatch,favoritesData,favDispatch}}>
           <RouterLinks />
-        </FavoritesDataContext.Provider>
-      </SearchResultContext.Provider>
-    </StatistaDataContext.Provider>
+    </StatistaContextData.Provider>
   )
 }
 

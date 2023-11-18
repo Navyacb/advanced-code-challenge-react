@@ -4,15 +4,18 @@ import styles from './StatistaList.module.css'
 import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../helper/formatDate';
-import { FavoritesDataContext } from '../state management/FavoritesDataContext';
-import { SearchResultContext } from '../state management/SearchResultContext';
 import { handleFavorites } from '../helper/handleFavorites';
+import { StatistaContextData } from '../state management/StatistaContextData';
+import { IStatistaData } from '../state management/StatistaContextData';
 
-export const StatistaList = (props:any)=>{
+interface IStatistaList{
+    list: IStatistaData[]
+}
+
+export const StatistaList = (props:IStatistaList)=>{
     const {list} = props
     const itemsPerPage = 10
-    const {favDispatch} = useContext(FavoritesDataContext)
-    const {searchResult,searchDispatch} = useContext(SearchResultContext)
+    const {searchResult,searchDispatch,favDispatch,favoritesData} = useContext(StatistaContextData)
     const [currentPage, setCurrentPage] = useState(1)
 
     const indexOfLastItem = currentPage * itemsPerPage
@@ -65,7 +68,7 @@ export const StatistaList = (props:any)=>{
                                                 handleFav(data);
                                             }}
                                         >
-                                            <Favorite style={{ color: data.starColor }} />
+                                            <Favorite style={{ color: data.favColor }} />
                                         </IconButton>
                                     </div>
                                     <Typography variant="h6" className={`${styles.title} ${styles.font}`}>
