@@ -30,3 +30,16 @@ Please build a React application that allows users to search for statistics usin
 - You can use statista.com as a design reference. The linked stylesheets give you the opportunity to use the same utility classes as used on statista.com.
 - API documentation:
   - https://de.statista.com/api/v2/doc
+
+ ------------------------------------------------------------------------------------------
+
+Developer Comment
+
+To start - 
+clone the repository to local, npm install , npm start
+
+Tech stack used - 
+React js, React hooks for state management , typescript, react query, react router ,axios, material UI css , testing -jest( tried to write basic test script )
+
+
+
