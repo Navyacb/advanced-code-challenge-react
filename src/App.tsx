@@ -1,14 +1,13 @@
 import React, { useReducer , useEffect} from 'react';
 import './App.css';
 import { RouterLinks } from './RouterLinks';
-import {StatistaContextData } from './state management/StatistaContextData';
+import {StatistaContextData, IStatistaData } from './state management/StatistaContextData';
 import axios from 'axios'
 import { useQuery} from 'react-query'
-import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 
 const App=()=>{
 
-  const searchReducer = (state:any,action:any)=>{
+  const searchReducer = (state:IStatistaData[],action:{ type: string, payload: any})=>{
       switch(action.type){
         case'ADD_SEARCH_LIST':
           return action.payload
@@ -21,12 +20,12 @@ const App=()=>{
       }
   }
 
-  const favReducer = (state:any,action:any)=>{
+  const favReducer = (state:number[],action:{ type: string, payload: any})=>{
     switch(action.type){
       case 'ADD_FAV':
         return [...state,action.payload]
       case 'UPDATE_FAV':
-        return state.filter((ele:any) => ele!==action.payload )
+        return state.filter(ele => ele!==action.payload )
       case 'ADD_FAV_lOCAL':
         return action.payload
       case 'default':

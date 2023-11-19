@@ -4,7 +4,6 @@ import styles from './SearchBar.module.css'
 import {Search} from '@mui/icons-material'
 import { StatistaContextData } from "../state management/StatistaContextData"
 import { StatistaList } from "./StatistaList"
-import { ListEmpty } from "./ListEmpty"
 import { ErrorMessage } from "./ErrorMessage"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -14,13 +13,6 @@ export const SearchBar = ()=>{
     const [searchText,setSearchText] = useState('')
     const {statistaData,favoritesData,searchResult,searchDispatch} = useContext(StatistaContextData)
     const [isSearch,setIsSearch] = useState(false)
-
-    useEffect(()=>{
-        setSearchText(search.includes('search=')?  search.split('?search=')[1]:'')
-        setIsSearch(search.includes('search='))
-        search.includes('search=') && getSearchList(search.split('?search=')[1])
-    },[statistaData])
-
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>)=>{
         setIsSearch(false)
@@ -58,6 +50,12 @@ export const SearchBar = ()=>{
         }
     }
 
+     useEffect(()=>{
+        setSearchText(search.includes('search=')?  search.split('?search=')[1]:'')
+        setIsSearch(search.includes('search='))
+        search.includes('search=') && getSearchList(search.split('?search=')[1])
+    },[statistaData,search])
+
     return(
         <div>
             <div className={styles.position}>
@@ -90,9 +88,7 @@ export const SearchBar = ()=>{
             {
                 ((isSearch || searchResult.length > 0) && searchText.length > 0) &&
                 (
-                    (searchResult.length>0)?
-                    <StatistaList list={searchResult}/> :
-                    <ListEmpty/>
+                    <StatistaList list={searchResult}/> 
                 )
             }
             {

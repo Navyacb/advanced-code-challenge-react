@@ -15,7 +15,6 @@ export const FavoritesList = ()=>{
     useEffect(()=>{
         if(statistaData){
             const result = statistaData.filter(data=>{
-                console.log(favoritesData)
                 return favoritesData.includes(data.identifier)
             })
             const fav = result.map(data=>{
@@ -23,7 +22,7 @@ export const FavoritesList = ()=>{
             })
             setFavList(fav)
         }
-    },[favoritesData])
+    },[favoritesData,statistaData])
 
     const handleBack = ()=>{
         navigate(-1);

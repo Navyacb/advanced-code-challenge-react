@@ -1,5 +1,7 @@
-export const handleFavorites = (data:any,searchResult:any,searchDispatch:any,favDispatch:any)=>{
-    const result = searchResult.map((ele:any)=>{
+import { IStatistaData } from "../state management/StatistaContextData"
+
+export const handleFavorites = (data:IStatistaData,searchResult:IStatistaData[],searchDispatch:React.Dispatch<{ type: string; payload: any; }>,favDispatch:React.Dispatch<{ type: string; payload: any; }>)=>{
+    const result = searchResult.map(ele=>{
         if(ele.identifier === data.identifier){
             const color = (ele.favColor === 'inherit') ? ('#0666e5') : ('inherit')
             return {...ele, ...{favColor : color}}

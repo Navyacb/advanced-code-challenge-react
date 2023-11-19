@@ -9,55 +9,44 @@ import { ErrorMessage } from "./ErrorMessage";
 import { handleFavorites } from "../helper/handleFavorites";
 import { StatistaContextData } from "../state management/StatistaContextData";
 import { useNavigate } from "react-router-dom";
+import {IStatistaData} from '../state management/StatistaContextData'
 
 export const StatistaDetails = ()=>{
     const navigate = useNavigate()
-    const {searchResult,searchDispatch,favDispatch,favoritesData} = useContext(StatistaContextData)
+    const {statistaData,searchResult,searchDispatch,favDispatch,favoritesData} = useContext(StatistaContextData)
     const {id} = useParams()
     const [showFullDescription, setShowFullDescription] = useState(false);
     const queryClient = useQueryClient();
 
     const fetchStatisticsDetail = ()=>{
-        const statistics = searchResult.find((data)=>{
-            return data.identifier.toString()===id
+        //as we are not calling api to get data , 
+            //manually computing data
+        const statistics = statistaData.find(data=>{
+            return data.identifier.toString() === id
         })
         if(statistics){
-            return statistics
-        }else{
-            //as we are not calling api to get data , 
-            //manually sending empty data instead of undefine if data do not exist as a part of typescript check
-            return {
-                identifier: 0,
-                title: '',
-                link:'',
-                subject:'',
-                description:'',
-                date:'',
-                premium: 0,
-                image_url:'',
-                teaser_image_urls:[{
-                    width:0,
-                    src:''
-                }],
-                favColor : '',
+            if(favoritesData.includes(statistics.identifier)){
+                return {...statistics,favColor:'#0666e5'}
+            }else{
+                return {...statistics,favColor:'inherit'}
             }
         }
     }
 
     const {data:statisticsDetail} = useQuery({
         queryFn : ()=>fetchStatisticsDetail(),
-        queryKey : ["StatisticsDetail"]
+        queryKey : ["StatisticsDetail"],
+        enabled: statistaData?.length>0
       })
 
     const toggleDescription = () => {
         setShowFullDescription((prev) => !prev)
     }
 
-    const handleFav = (data:any)=>{
+    const handleFav = (data:IStatistaData)=>{
         handleFavorites(data,searchResult,searchDispatch,favDispatch)
         const color = (data.favColor === 'inherit') ? ('#0666e5') : ('inherit')
-        queryClient.setQueryData(['StatisticsDetail'], {...data,favColor : color});
-        
+        queryClient.setQueryData(['StatisticsDetail'], {...data,favColor : color});     
     }
 
     const handleBack = ()=>{

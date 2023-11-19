@@ -16,9 +16,15 @@ export interface IStatistaData{
 interface IStatistaDataType{
     statistaData : IStatistaData[],
     searchResult : IStatistaData[],
-    searchDispatch : any,
+    searchDispatch : React.Dispatch<{
+        type: string;
+        payload: any;
+    }>,
     favoritesData : number[],
-    favDispatch : any,
+    favDispatch : React.Dispatch<{
+        type: string;
+        payload: any;
+    }>,
 }
 
 export const StatistaContextData = createContext<IStatistaDataType>({
