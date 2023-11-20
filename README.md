@@ -39,7 +39,14 @@ To start -
 clone the repository to local, npm install , npm start
 
 Tech stack used - 
-React js, React hooks for state management , typescript, react query, react router ,axios, material UI css , testing -jest( tried to write basic test script )
+React ts, React hooks for state management , typescript, react query, react router ,axios, material UI css , testing -jest( tried to write basic test script )
+
+Src folders - 
+components : to store all reusable component files
+helper : to store all reusable function files
+images: to store all images used in the application
+state management : to store the all context state management used in the application
+utils : to store the test wrapper and test utils for having test scripts for the coresponding components
 
 
 
