@@ -1,8 +1,5 @@
 # Exercise for Front-end Developers
 
-## Statista React Search
-
-Welcome to our programming exercise for Senior Front-end Developers.
 
 Please build a React application that allows users to search for statistics using our Statista API. The application should meet the following requirements:
 
